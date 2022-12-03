@@ -7,22 +7,52 @@ def get_score(char: chr) -> int:
     return 26 + (ord(char) - ord('A')) + 1
 
 
-start = time.time()
-score = 0
-f = open("gen3.txt", "r")
+def part1_mergesort(f):
+    score = 0
+    for line in f:
+        comp1 = line[0:len(line) // 2]
+        comp2 = line[len(line) // 2:len(line) - 1]
+        comp1 = {char for char in comp1}
+        comp1 = list(comp1)
+        comp1.sort()
+        comp2 = {char for char in comp2}
+        comp2 = list(comp2)
+        comp2.sort()
+        j = 0
+        for i in range(0, len(comp1)):
+            while j < len(comp2) and comp1[i] > comp2[j]:
+                j += 1
+            if j < len(comp2) and comp1[i] == comp2[j]:
+                score += get_score(comp1[i])
+    return score
 
-for line in f:
-    comp1 = line[0:len(line) // 2]
-    comp2 = line[len(line) // 2:len(line) - 1]
-    comp1 = {char for char in comp1}
-    comp2 = {char for char in comp2}
-    for char in comp1.intersection(comp2):
-        scoreToAdd = get_score(char)
-        score += scoreToAdd
-del comp1
-del comp2
-print(score)
-print(time.time() - start)
+
+def part1_intersect(f):
+    score = 0
+    for line in f:
+        comp1 = line[0:len(line) // 2]
+        comp2 = line[len(line) // 2:len(line) - 1]
+        comp1 = {char for char in comp1}
+        comp2 = {char for char in comp2}
+        for char in comp1.intersection(comp2):
+            score += get_score(char)
+    return score
+
+# PArt 1 using merge sort
+start = time.time()
+for x in range(0, 5):
+    f = open("gen3.txt", "r")
+    score = part1_mergesort(f)
+    print(score)
+print((time.time() - start) / 5)
+
+# Part 1 using set intersect
+start = time.time()
+for x in range(0, 5):
+    f = open("gen3.txt", "r")
+    score = part1_intersect(f)
+    print(score)
+print((time.time() - start) / 5)
 
 # Part 2
 start = time.time()
