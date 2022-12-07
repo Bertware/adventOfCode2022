@@ -41,7 +41,7 @@ def part1_intersect(f):
 # PArt 1 using merge sort
 start = time.time()
 for x in range(0, 5):
-    f = open("gen3.txt", "r")
+    f = open("advent3.large.txt", "r")
     score = part1_mergesort(f)
     print(score)
 print((time.time() - start) / 5)
@@ -49,7 +49,7 @@ print((time.time() - start) / 5)
 # Part 1 using set intersect
 start = time.time()
 for x in range(0, 5):
-    f = open("gen3.txt", "r")
+    f = open("advent3.large.txt", "r")
     score = part1_intersect(f)
     print(score)
 print((time.time() - start) / 5)
@@ -57,7 +57,7 @@ print((time.time() - start) / 5)
 # Part 2
 start = time.time()
 score = 0
-f = open("gen3.txt", "r")
+f = open("advent3.large.txt", "r")
 lines = []
 for line in f:
     lines.append(line.strip())
